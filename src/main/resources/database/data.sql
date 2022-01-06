@@ -16,4 +16,8 @@ INSERT INTO student_offering VALUES (1, 1);
 INSERT INTO student_offering VALUES (1, 2);
 INSERT INTO student_offering VALUES (2, 4);
 
--- INSERT INTO assessment VALUES (1, 1, 2021-09-10);
+INSERT INTO assessment VALUES (1, 1, to_date('10/9/2021', 'dd/mm/yyyy'), 0.1);
+INSERT INTO assessment VALUES (2, 1, to_date('24/8/2021', 'dd/mm/yyyy'), 0.2);
+INSERT INTO assessment VALUES (3, 1, to_date('01/10/2021', 'dd/mm/yyyy'), 0.2);
+INSERT INTO assessment VALUES (4, 1, to_date('24/10/2021', 'dd/mm/yyyy'), 0.5);
+ALTER SEQUENCE assessment_assessment_id_sequence RESTART WITH 5;

@@ -20,6 +20,18 @@ public class AssessmentService {
 
     public Integer addAssessment(Assessment assessment, Integer offeringId) {
         Offering offering = offeringRepository.findById(offeringId).orElseThrow(() ->new IllegalStateException("Invalid offering id" + offeringId));
+        List<Assessment> assessments = offering.getAssessments();
+        float totalPercentage = 0;
+        for (Assessment a : assessments) {
+            if (a.getAssessmentDate().equals(assessment.getAssessmentDate())) {
+                throw new IllegalStateException("Assessments of the same offering must be on different dates");
+            }
+            totalPercentage += a.getAssessmentWeight();
+        }
+        if (totalPercentage + assessment.getAssessmentWeight() > 1) {
+            throw new IllegalStateException(String.format("Total weight of assessments must be less than 1\n%.2f%% left", (1-totalPercentage)));
+        }
+        assessment.setAssessmentWeight((float) (Math.round(assessment.getAssessmentWeight()*100)*1.0/100));
         offering.addAssessment(assessment);
         assessmentRepository.save(assessment);
         return assessment.getAssessmentId();

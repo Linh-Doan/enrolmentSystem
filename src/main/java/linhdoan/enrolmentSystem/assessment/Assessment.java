@@ -42,6 +42,12 @@ public class Assessment {
     )
     private LocalDate assessmentDate;
 
+    @Column(
+            name = "assessment_weight",
+            nullable = false
+    )
+    private Float assessmentWeight;
+
     public Assessment() {
     }
 
@@ -72,5 +78,13 @@ public class Assessment {
 
     public void setAssessmentDate(LocalDate assessmentDate) {
         this.assessmentDate = assessmentDate;
+    }
+
+    public Float getAssessmentWeight() {
+        return assessmentWeight;
+    }
+
+    public void setAssessmentWeight(Float assessmentWeight) {
+        this.assessmentWeight = assessmentWeight;
     }
 }

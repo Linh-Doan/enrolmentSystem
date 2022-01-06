@@ -1,6 +1,8 @@
 package linhdoan.enrolmentSystem.unit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +24,23 @@ public class UnitController {
     }
 
     @GetMapping(path = "{unitCode}")
-    public Unit getUnitByUnitCode(@PathVariable("unitCode") String unitCode){
-        return unitService.getUnitByUnitCode(unitCode);
+    public ResponseEntity getUnitByUnitCode(@PathVariable("unitCode") String unitCode){
+        Unit unit = null;
+        try {
+            unit = unitService.getUnitByUnitCode(unitCode);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<Unit>(unit, HttpStatus.OK);
     }
 
-    @PostMapping(path = "new")
-    public void addNewUnit(@RequestBody Unit newUnit) {
-        this.unitService.addNewUnit(newUnit);
+    @PostMapping
+    public ResponseEntity addNewUnit(@RequestBody Unit newUnit) {
+        try {
+            this.unitService.addNewUnit(newUnit);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(newUnit, HttpStatus.CREATED);
     }
 }

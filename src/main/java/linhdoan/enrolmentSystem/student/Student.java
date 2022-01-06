@@ -70,7 +70,6 @@ public class Student {
     @JsonIgnoreProperties(ignoreUnknown = true, value = {"currentStudents"})
     private List<Offering> enrolledOfferings;
 
-
     public Student() {
     }
 

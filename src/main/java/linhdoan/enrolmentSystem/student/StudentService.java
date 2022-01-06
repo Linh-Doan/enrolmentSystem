@@ -23,16 +23,17 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public void addNewStudent(Student student) {
+    public Integer addNewStudent(Student student) {
         Optional<Student> studentFound = studentRepository.findStudentByEmail(student.getEmail());
         if (studentFound.isPresent()) {
             throw new IllegalStateException("Email " + student.getEmail() +" has been taken");
         }
         studentRepository.save(student);
+        return student.getStudentId();
     }
 
     @Transactional
-    public void deleteOfferingInStudent(Integer studentId, Integer offeringId) {
+    public void deleteEnrolment(Integer studentId, Integer offeringId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("Invalid student id " + studentId));
         List<Offering> offeringsList = student.getEnrolledOfferings();
         boolean offeringFound = false;
@@ -52,6 +53,12 @@ public class StudentService {
     public void addEnrolment(Integer studentId, Integer offeringId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("Invalid student id " + studentId));
         Offering offering = offeringRepository.findById(offeringId).orElseThrow(() -> new IllegalStateException("Invalid offering id " + offeringId));
+        List<Offering> currentOfferings = student.getEnrolledOfferings();
+        for (Offering o : currentOfferings) {
+            if (o.getOfferingId().equals(offeringId)) {
+                throw new IllegalStateException("Student " + studentId + " is already enrolled in offering " + offeringId);
+            }
+        }
         student.addEnrolledOffering(offering);
     }
 

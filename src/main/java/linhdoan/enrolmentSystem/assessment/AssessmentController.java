@@ -1,6 +1,8 @@
 package linhdoan.enrolmentSystem.assessment;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +18,23 @@ public class AssessmentController {
     }
 
     @GetMapping
-    public List<Assessment> getAssessments(@PathVariable("offeringId") Integer offeringId) {
-        return assessmentService.getAssessments(offeringId);
+    public ResponseEntity getAssessments(@PathVariable("offeringId") Integer offeringId) {
+        List<Assessment> assessments = null;
+        try {
+            assessments = assessmentService.getAssessments(offeringId);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(assessments);
     }
 
-    @PostMapping(path = "new")
-    public Integer addAssessment(@RequestBody Assessment assessment, @PathVariable("offeringId") Integer offeringId) {
-        return assessmentService.addAssessment(assessment, offeringId);
+    @PostMapping
+    public ResponseEntity addAssessment(@RequestBody Assessment assessment, @PathVariable("offeringId") Integer offeringId) {
+        try {
+            assessmentService.addAssessment(assessment, offeringId);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(assessment);
     }
 }

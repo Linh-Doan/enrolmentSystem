@@ -18,10 +18,13 @@ public class OfferingService {
     }
 
     public List<Offering> getOfferings(String unitCode) {
+        if (!unitRepository.findById(unitCode).isPresent()) {
+            throw new IllegalStateException("Unit " + unitCode + " does not exist");
+        }
         return offeringRepository.findByUnitCode(unitCode);
     }
 
-    public Integer addOffering(Offering newOffering, String unitCode) {
+    public Offering addOffering(Offering newOffering, String unitCode) {
         if (newOffering.isNew()) {
             if (!unitRepository.findById(unitCode).isPresent()) {
                 throw new IllegalStateException("Unit " + unitCode + " does not exist");
@@ -33,7 +36,7 @@ public class OfferingService {
             unit.addOffering(newOffering);
             offeringRepository.save(newOffering);
         }
-        return newOffering.getOfferingId();
+        return newOffering;
     }
 
     public List<Offering> getAllOfferings() {

@@ -42,6 +42,7 @@ CREATE TABLE assessment(
                            assessment_id INT PRIMARY KEY NOT NULL DEFAULT nextval('assessment_assessment_id_sequence'),
                            offering_id INT NOT NULL,
                            assessment_date DATE NOT NULL,
+                           assessment_weight REAL NOT NULL,
                            CONSTRAINT unique_assessment UNIQUE (offering_id, assessment_date)
 );
 ALTER SEQUENCE assessment_assessment_id_sequence OWNED BY assessment.assessment_id;
