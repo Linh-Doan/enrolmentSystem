@@ -1,5 +1,5 @@
 INSERT INTO student VALUES (1, 'Linh', 'Doan', 'linh.doan@gmail.com', to_date('12/07/1998', 'dd/mm/yyyy'));
-INSERT INTO student VALUES (2, 'Lawrence', 'MacDonald', 'lawrence@gmail.com', to_date('02/05/1996', 'dd/mm/yyyy'));
+INSERT INTO student VALUES (2, 'Lawre', 'MD', 'lawre@gmail.com', to_date('01/06/1995', 'dd/mm/yyyy'));
 ALTER SEQUENCE student_student_id_sequence RESTART WITH 3;
 
 INSERT INTO unit VALUES ('FIT2107', 'Quality Assurance');

@@ -18,7 +18,7 @@ public class AssessmentController {
     }
 
     @GetMapping
-    public ResponseEntity getAssessments(@PathVariable("offeringId") Integer offeringId) {
+    public ResponseEntity<Object> getAssessments(@PathVariable("offeringId") Integer offeringId) {
         List<Assessment> assessments = null;
         try {
             assessments = assessmentService.getAssessments(offeringId);
@@ -29,7 +29,7 @@ public class AssessmentController {
     }
 
     @PostMapping
-    public ResponseEntity addAssessment(@RequestBody Assessment assessment, @PathVariable("offeringId") Integer offeringId) {
+    public ResponseEntity<Object> addAssessment(@RequestBody Assessment assessment, @PathVariable("offeringId") Integer offeringId) {
         try {
             assessmentService.addAssessment(assessment, offeringId);
         } catch (IllegalStateException e) {
