@@ -1,11 +1,13 @@
 package linhdoan.enrolmentSystem.student;
 
+import linhdoan.enrolmentSystem.assessment.Assessment;
 import linhdoan.enrolmentSystem.offering.Offering;
 import linhdoan.enrolmentSystem.offering.OfferingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,5 +67,15 @@ public class StudentService {
     public Student getStudentById(Integer studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("Invalid student id "+studentId));
         return student;
+    }
+
+    public List<Assessment> getSchedule(Integer studentId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("Invalid student id " +  studentId));
+        List<Assessment> schedule = new ArrayList<>();
+        List<Offering> offerings = student.getEnrolledOfferings();
+        for (Offering offering : offerings) {
+            schedule.addAll(offering.getAssessments());
+        }
+        return schedule;
     }
 }

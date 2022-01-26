@@ -1,10 +1,7 @@
 package linhdoan.enrolmentSystem.student;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import linhdoan.enrolmentSystem.offering.Offering;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
@@ -67,7 +64,7 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "offering_id")
     )
-    @JsonIgnoreProperties(ignoreUnknown = true, value = {"currentStudents"})
+    @JsonIgnoreProperties(ignoreUnknown = true, value = {"currentStudents", "assessments"})
     private List<Offering> enrolledOfferings;
 
     public Student() {

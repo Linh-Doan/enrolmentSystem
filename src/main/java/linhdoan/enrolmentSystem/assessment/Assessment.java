@@ -33,7 +33,7 @@ public class Assessment {
             name = "offering_id",
             nullable = false
     )
-    @JsonIgnoreProperties(ignoreUnknown = true, value = {"assessments"})
+    @JsonIgnoreProperties(ignoreUnknown = true, value = {"assessments", "currentStudents", "offeringId", "offeringYear", "offeringSemester"})
     private Offering offering;
 
     @Column(
