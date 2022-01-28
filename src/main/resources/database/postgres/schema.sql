@@ -34,15 +34,17 @@ CREATE INDEX ON offering(unit_code);
 CREATE TABLE student_offering (
                                   student_id INT NOT NULL REFERENCES student(student_id),
                                   offering_id INT NOT NULL REFERENCES offering(offering_id),
-                                  UNIQUE (student_id, offering_id)
+                                  UNIQUE (student_id, offering_id),
+                                  PRIMARY KEY (student_id, offering_id)
 );
 
 CREATE SEQUENCE assessment_assessment_id_sequence AS INT INCREMENT BY 1;
 CREATE TABLE assessment(
                            assessment_id INT PRIMARY KEY NOT NULL DEFAULT nextval('assessment_assessment_id_sequence'),
-                           offering_id INT NOT NULL,
+                           offering_id INT NOT NULL REFERENCES offering(offering_id),
                            assessment_date DATE NOT NULL,
                            assessment_weight REAL NOT NULL,
                            CONSTRAINT unique_assessment UNIQUE (offering_id, assessment_date)
 );
 ALTER SEQUENCE assessment_assessment_id_sequence OWNED BY assessment.assessment_id;
+ALTER SEQUENCE assessment_assessment_id_sequence RESTART WITH 5;
