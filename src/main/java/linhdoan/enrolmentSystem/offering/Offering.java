@@ -1,9 +1,6 @@
 package linhdoan.enrolmentSystem.offering;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import linhdoan.enrolmentSystem.assessment.Assessment;
 import linhdoan.enrolmentSystem.student.Student;
 import linhdoan.enrolmentSystem.unit.Unit;
@@ -79,6 +76,10 @@ public class Offering {
 
     public Integer getOfferingId() {
         return offeringId;
+    }
+
+    public void setOfferingId(Integer offeringId) {
+        this.offeringId = offeringId;
     }
 
     public Unit getUnit() {

@@ -1,8 +1,10 @@
 package linhdoan.enrolmentSystem.unit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import linhdoan.enrolmentSystem.util.Util;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UnitController.class)
-class UnitControllerTest {
+public class UnitControllerTest {
     @Autowired
     private MockMvc mvc;
 
@@ -38,8 +40,8 @@ class UnitControllerTest {
 
     private String badRequestMessage;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         unit1 = new Unit("FIT1001", "Intro");
         unit2 = new Unit("FIT2001", "Intermediate");
         badRequestMessage = "message";
@@ -79,7 +81,7 @@ class UnitControllerTest {
     @Test
     public void whenPostValidNewUnit_thenReturnNewUnit() throws Exception {
         mvc.perform(post("/unit")
-                .content(asJsonString(unit1))
+                .content(Util.asJsonString(unit1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -90,19 +92,12 @@ class UnitControllerTest {
     public void whenPostInvalidNewUnit_thenReturnBadRequest() throws Exception {
         doThrow(new IllegalStateException(badRequestMessage)).when(unitService).addNewUnit(isA(Unit.class));
         mvc.perform(post("/unit")
-                .content(asJsonString(unit1))
+                .content(Util.asJsonString(unit1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$").value(badRequestMessage));
     }
 
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 }

@@ -35,6 +35,6 @@ public class AssessmentController {
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(assessment);
+        return new ResponseEntity<>(assessment, HttpStatus.CREATED);
     }
 }

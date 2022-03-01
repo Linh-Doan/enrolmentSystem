@@ -2,7 +2,6 @@ package linhdoan.enrolmentSystem.student;
 
 import linhdoan.enrolmentSystem.assessment.Assessment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +50,7 @@ public class StudentController {
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok("Student with id " + studentId + " deleted");
+        return ResponseEntity.ok("Student with id " + studentId + " is no longer enrolled in offering " + offeringId);
     }
 
     @PutMapping(path = "{studentId}/offeringId/{offeringId}")
