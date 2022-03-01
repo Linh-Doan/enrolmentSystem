@@ -18,6 +18,9 @@ public class UnitController {
         this.unitService = unitService;
     }
 
+    public UnitController() {
+    }
+
     @GetMapping
     public List<Unit> getAllUnits(){
         return unitService.getAllUnits();
