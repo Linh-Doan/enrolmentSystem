@@ -56,6 +56,12 @@ public class Assessment {
         this.assessmentDate = assessmentDate;
     }
 
+    public Assessment(Offering offering, LocalDate assessmentDate, Float assessmentWeight) {
+        this.offering = offering;
+        this.assessmentDate = assessmentDate;
+        this.assessmentWeight = assessmentWeight;
+    }
+
     public Integer getAssessmentId() {
         return assessmentId;
     }

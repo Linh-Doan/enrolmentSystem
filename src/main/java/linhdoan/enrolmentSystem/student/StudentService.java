@@ -34,6 +34,11 @@ public class StudentService {
         return student.getStudentId();
     }
 
+    public Student getStudentById(Integer studentId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("Invalid student id "+studentId));
+        return student;
+    }
+
     @Transactional
     public void deleteEnrolment(Integer studentId, Integer offeringId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("Invalid student id " + studentId));
@@ -62,11 +67,6 @@ public class StudentService {
             }
         }
         student.addEnrolledOffering(offering);
-    }
-
-    public Student getStudentById(Integer studentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException("Invalid student id "+studentId));
-        return student;
     }
 
     public List<Assessment> getSchedule(Integer studentId) {

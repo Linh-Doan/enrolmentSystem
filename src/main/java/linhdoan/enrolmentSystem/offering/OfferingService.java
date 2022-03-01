@@ -35,6 +35,8 @@ public class OfferingService {
             }
             unit.addOffering(newOffering);
             offeringRepository.save(newOffering);
+        } else {
+            throw new IllegalStateException("New offering must not have an id");
         }
         return newOffering;
     }
