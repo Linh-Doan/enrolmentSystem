@@ -12,3 +12,4 @@ Technologies used:
 - Spring boot
 - Postgresql database
 - Postman
+- JUnit
